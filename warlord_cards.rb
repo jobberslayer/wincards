@@ -65,10 +65,13 @@ if ARGV[0].nil?
   exit
 end
 
+FileUtils.rm Dir.glob '*.png'
+
 begin
   File.open(ARGV[0]) do |file|
     while card_img = file.gets
-      card_img.chomp!
+      card_img.strip!.chomp!
+      next if card_img.start_with?('#') 
       puts "adding [#{card_img}]"
       card("cards/#{card_img}")
     end
