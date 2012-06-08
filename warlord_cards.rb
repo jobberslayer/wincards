@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'RMagick'
 require 'rvg/rvg'
+require 'fileutils'
 
 include Magick
 
