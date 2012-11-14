@@ -27,7 +27,7 @@ sub createPDF {
         }
     
         for (my $i = 0; $i < $num; $i++) {
-            $files .= "\"cards/$name.jpg\" ";
+            $files .= "\"$card_cache/$name.jpg\" ";
         }
     
         $ct++;
@@ -38,16 +38,18 @@ sub createPDF {
 
 sub get_card_image {
     my ($name) = @_;
+
+    my $card_cache = '/home/sites/warlord/bin/wincards/cards';
     
-    print "Caching $name\n";
+    print STDERR "Caching $name\n";
     
     my $encoded_name = uri_escape($name);
     my $url = "http://www.temple-of-lore.com/spoiler/popup.php?name=$encoded_name";
     my $html = get($url);
     $html =~ /IMG src="(.*?)"/;
-    print $1 . "\n";
+    print STDERR $1 . "\n";
     my $img_url = "http://www.temple-of-lore.com/spoiler/$1";
-    getstore($img_url, "cards/$name.jpg");
+    getstore($img_url, "$card_cache/$name.jpg");
 }
 
 1;
