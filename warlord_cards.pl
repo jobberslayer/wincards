@@ -29,7 +29,9 @@ while (my $line = <FILE>) {
         $name = $line;
     }
     
+    $name =~ s/^\s*//;
     if (!-e "cards/$name.jpg") {
+        print "no [$name].jpg in cache\n";
         get_card_image($name);    
     }
     
@@ -51,7 +53,7 @@ sub get_card_image {
     my $url = "http://www.temple-of-lore.com/spoiler/popup.php?name=$encoded_name";
     my $html = get($url);
     $html =~ /IMG src="(.*?)"/;
-    print $1 . "\n";
+    print "GETTING CARD: " . $1 . "\n";
     my $img_url = "http://www.temple-of-lore.com/spoiler/$1";
     getstore($img_url, "cards/$name.jpg");
 }

@@ -33,7 +33,7 @@ sub createPDF {
         $ct++;
     }
 
-    system("montage -tile 3x3 -geometry ${width}x${height}+25+15 $files $outfile.pdf");
+    system("montage -tile 3x3 -geometry ${width}x${height}+25+15 '$files' $outfile.pdf");
 }
 
 sub get_card_image {
